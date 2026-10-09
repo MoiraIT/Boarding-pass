@@ -21,7 +21,7 @@
     --stage: #e4e9ef;
     --ui-bg: #f5f7fa;
     --ui-border: #d5dce5;
-    --print-w: 277mm;
+    --print-w: 200mm; /* 20 x 8 cm, rapporto 2.5:1 */
   }
   * { box-sizing: border-box; }
   body {
@@ -115,7 +115,7 @@
 
   .row { flex: 1; display: flex; min-height: 0; }
   .main { flex: 0 0 73%; display: flex; flex-direction: column; min-width: 0; }
-  .body { flex: 1; display: flex; gap: 2cqw; padding: 2cqw 2.2cqw .8cqw; min-height: 0; }
+  .body { flex: 1; display: flex; gap: 2cqw; padding: 2cqw 2.2cqw 2cqw; min-height: 0; }
   .photo {
     display: none; flex: 0 0 24%; border-radius: .8cqw;
     background-color: #dfe5ec; background-size: cover; background-position: center;
@@ -272,6 +272,7 @@
         <input type="file" id="image" accept="image/*" hidden>
       </div>
       <p class="hint">La foto resta sul tuo dispositivo: non viene caricata da nessuna parte.</p>
+      <p class="hint">Formato consigliato: <b>verticale, rapporto 1:2</b> (la metà più larga che alta), ad esempio 600 × 1200 px. Altre proporzioni vengono centrate e ritagliate automaticamente.</p>
     </fieldset>
 
     <fieldset>
@@ -294,7 +295,7 @@
       <button type="button" class="btn primary" id="printBtn">Stampa o salva in PDF</button>
       <button type="reset" class="btn">Ripristina l'esempio</button>
     </div>
-    <p class="hint">Nella finestra di stampa scegli «Salva come PDF» e, se i colori non compaiono, attiva «Grafica di sfondo».</p>
+    <p class="hint">Nella finestra di stampa lascia la scala al 100% (Predefinita): il biglietto esce già in formato 20 × 8 cm. Per salvare in PDF scegli «Salva come PDF» e, se i colori non compaiono, attiva «Grafica di sfondo».</p>
 
     <div class="demo-box" id="demoBox">
       Versione demo: la stampa include la filigrana.
@@ -348,7 +349,6 @@
                   <p class="msg" id="msg" data-bind="message"></p>
                 </div>
               </div>
-              <div class="foot">Biglietto regalo, non valido per il viaggio</div>
             </div>
 
             <div class="stub">
@@ -450,7 +450,6 @@
   $("paper").addEventListener("change", () => {
     const letter = $("paper").value === "letter";
     $("pageStyle").textContent = `@page { size: ${letter ? "letter" : "A4"} landscape; margin: 10mm; }`;
-    document.documentElement.style.setProperty("--print-w", letter ? "259mm" : "277mm");
   });
 
   /* Foto: ridimensionata nel browser, mai caricata online */
